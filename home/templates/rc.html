@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Recommendation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .recommendation-item {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Name Recommendation</h1>
+        <form id="nameForm" class="form-inline justify-content-center mb-4">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" id="nameInput" name="name" class="form-control" placeholder="Enter a name" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
+        <h2 class="text-center">Recommendations:</h2>
+        <ul id="recommendations" class="list-unstyled">
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('nameInput').value;
+            fetch(`/recommend/?name=${name}`)
+                .then(response => response.json())
+                .then(data => {
+                    const recommendationsList = document.getElementById('recommendations');
+                    recommendationsList.innerHTML = '';
+                    if (data.recommendations) {
+                        data.recommendations.forEach(rec => {
+                            const listItem = document.createElement('li');
+                            listItem.classList.add('recommendation-item');
+                            listItem.textContent = rec.name;
+                            recommendationsList.appendChild(listItem);
+                        });
+                    } else {
+                        const errorMessage = document.createElement('li');
+                        errorMessage.classList.add('recommendation-item', 'text-danger');
+                        errorMessage.textContent = 'No recommendations found.';
+                        recommendationsList.appendChild(errorMessage);
+                    }
+                })
+                .catch(error => {
+                    const errorMessage = document.createElement('li');
+                    errorMessage.classList.add('recommendation-item', 'text-danger');
+                    errorMessage.textContent = 'An error occurred while fetching recommendations.';
+                    document.getElementById('recommendations').appendChild(errorMessage);
+                });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
