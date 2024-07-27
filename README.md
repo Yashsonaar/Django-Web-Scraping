@@ -106,10 +106,6 @@ This project is a Django-based web application that scrapes data about gaming la
 4. 🚀 Push to the branch: `git push origin feature-branch`
 5. 🔄 Open a pull request.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - 🙏 Thanks to Flipkart for providing the data used in this project.
