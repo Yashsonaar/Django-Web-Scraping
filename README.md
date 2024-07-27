@@ -29,7 +29,7 @@ This project is a Django-based web application that scrapes data about gaming la
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/gaming-laptop-recommendation.git
+    git clone https://github.com/Yashsonaar/Django-Web-Scraping.git
     cd gaming-laptop-recommendation
     ```
 
